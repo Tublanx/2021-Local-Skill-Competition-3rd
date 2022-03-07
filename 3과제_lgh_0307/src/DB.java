@@ -27,6 +27,7 @@ public class DB {
 			stmt.execute(sql);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "셋팅 실패", "경고", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 	}
 
@@ -73,9 +74,11 @@ public class DB {
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "셋팅 실패", "경고", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 
 		JOptionPane.showMessageDialog(null, "셋팅 성공", "정보", JOptionPane.INFORMATION_MESSAGE);
+		System.exit(0);
 	}
 
 	public static void main(String[] args) {

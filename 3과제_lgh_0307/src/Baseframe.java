@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
@@ -9,9 +10,11 @@ import java.sql.Statement;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +22,14 @@ import javax.swing.table.DefaultTableModel;
 public class Baseframe extends JFrame {
 	static Connection con = DB.con;
 	static Statement stmt = DB.stmt;
+
+	static JPanel n, c, s, e, w;
+
+	static String uno = "";
+	String category[] = ",편의점,영화관,화장품,음식점,백화점,의류점,커피전문점,은행".split(",");
+	String local[] = "전체,서울,부산,대구,인천,광주,대전,울산,세종,경기,강원,충북,충남,전북,전남,경북,경남,제주".split(",");
+	String graduate[] = "대학교 졸업,고등학교 졸업,중학교 졸업,무관".split(",");
+	String gender[] = "남자,여자,무관".split(",");
 
 	static DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
 
@@ -38,6 +49,23 @@ public class Baseframe extends JFrame {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "셋팅 실패", "경고", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	String getone(String sql) {
+		try {
+			var rs = stmt.executeQuery(sql);
+			if (rs.next()) {
+				return rs.getString(1);
+			} else {
+				return "";
+			}
+		} catch (SQLException e) {
+			return null;
+		}
+	}
+
+	int toInt(Object path) {
+		return Integer.parseInt(path.toString());
 	}
 
 	void iMsg(String msg) {
@@ -91,9 +119,14 @@ public class Baseframe extends JFrame {
 		}
 	}
 
+	<T extends JComponent> T sz(T c, int w, int h) {
+		c.setPreferredSize(new Dimension(w, h));
+		return c;
+	}
+
 	JLabel lbl1(String t, int a, int s) {
 		var l = new JLabel(t, a);
-		l.setFont(new Font("", Font.BOLD, s));
+		l.setFont(new Font("", Font.TYPE1_FONT, s));
 		return l;
 	}
 
@@ -113,7 +146,7 @@ public class Baseframe extends JFrame {
 		b.addActionListener(a);
 		return b;
 	}
-	
+
 	public Baseframe(String t, int w, int h) {
 		super(t);
 		this.setSize(w, h);
