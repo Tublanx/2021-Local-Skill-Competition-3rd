@@ -67,7 +67,7 @@ public class Main extends Baseframe {
 
 			btn[i].addActionListener(e -> {
 				if (e.getActionCommand().equals("로그인")) {
-					new Login().addWindowListener(new Before(Main.this));
+					new Login(this).addWindowListener(new Before(Main.this));
 				} else if (e.getActionCommand().equals("로그아웃")) {
 					iMsg("로그아웃 되었습니다.");
 					logout();
@@ -226,6 +226,7 @@ public class Main extends Baseframe {
 		img.setBorder(new LineBorder(Color.BLACK));
 		img.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage((byte[]) pic).getScaledInstance(30, 30, 4)));
 		name.setText(getone("select u_name from user where u_no=" + uno) + "님 환영합니다.");
+		btn[3].setVisible(true);
 		for (int i = 0; i < tmp.length; i++) {
 			btn[i].setText(tmp[i]);
 		}
