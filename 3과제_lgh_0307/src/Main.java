@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ItemEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -63,11 +64,34 @@ public class Main extends Baseframe {
 
 		for (int i = 0; i < 4; i++) {
 			csub2.add(btn[i]);
+
+			btn[i].addActionListener(e -> {
+				if (e.getActionCommand().equals("로그인")) {
+					new Login().addWindowListener(new Before(Main.this));
+				} else if (e.getActionCommand().equals("로그아웃")) {
+					iMsg("로그아웃 되었습니다.");
+					logout();
+				} else if (e.getActionCommand().equals("회원가입")) {
+					new Sign().addWindowListener(new Before(Main.this));
+				} else if (e.getActionCommand().equals("채용정보")) {
+					new EmployeeInfo().addWindowListener(new Before(Main.this));
+				} else if (e.getActionCommand().equals("마이페이지")) {
+					new Mypage().addWindowListener(new Before(Main.this));
+				} else if (e.getActionCommand().equals("닫기")) {
+					System.exit(0);
+				}
+			});
 		}
 
 		sn.add(lbl1("지역", 0, 20));
 		sn.add(com = new JComboBox<String>(
 				new DefaultComboBoxModel<String>("전체,서울,부산,대구,인천,광주,대전,울산,세종,경기,강원,충북,충남,전북,전남,경북,경남,제주".split(","))));
+
+		com.addItemListener(e -> {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				animation();
+			}
+		});
 
 		animation();
 
