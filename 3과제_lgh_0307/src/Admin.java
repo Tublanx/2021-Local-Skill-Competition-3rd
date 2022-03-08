@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -32,7 +31,7 @@ public class Admin extends Baseframe {
 				} else if (e.getActionCommand().equals(str[1])) {
 					new UserInfo().addWindowListener(new Before(Admin.this));
 				} else if (e.getActionCommand().equals(str[2])) {
-					new CreateOpening().addWindowListener(new Before(Admin.this));
+					new Posting().addWindowListener(new Before(Admin.this));
 				} else if (e.getActionCommand().equals(str[3])) {
 					new Analyze().addWindowListener(new Before(Admin.this));
 				} else {
@@ -62,17 +61,14 @@ public class Admin extends Baseframe {
 					}
 				};
 
+				String cno = rs.getString(1);
+
 				lbl.setToolTipText(rs.getString(3));
 
 				lbl.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mousePressed(MouseEvent e) {
-						try {
-							new CompanyDetail(rs.getString(1), Admin.this).addWindowListener(new Before(Admin.this));
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+						new CompanyDetail(cno, Admin.this).addWindowListener(new Before(Admin.this));
 					}
 
 					@Override
