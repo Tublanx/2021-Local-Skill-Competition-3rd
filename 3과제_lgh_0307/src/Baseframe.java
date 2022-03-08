@@ -1,3 +1,4 @@
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -25,7 +26,7 @@ public class Baseframe extends JFrame {
 
 	static JPanel n, c, s, e, w;
 
-	static String uno = "";
+	static String uno = "", ugender;
 	String category[] = ",편의점,영화관,화장품,음식점,백화점,의류점,커피전문점,은행".split(",");
 	String local[] = "전체,서울,부산,대구,인천,광주,대전,울산,세종,경기,강원,충북,충남,전북,전남,경북,경남,제주".split(",");
 	String graduate[] = "대학교 졸업,고등학교 졸업,중학교 졸업,무관".split(",");
@@ -94,8 +95,20 @@ public class Baseframe extends JFrame {
 		t.getTableHeader().setResizingAllowed(false);
 		t.setSelectionMode(0);
 
+		var r = new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				if (value instanceof JLabel) {
+					return (JComponent) value;
+				} else {
+					return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				}
+			}
+		};
+		r.setHorizontalAlignment(0);
 		for (int i = 0; i < t.getColumnCount(); i++) {
-			t.getColumnModel().getColumn(i).setCellRenderer(dtcr);
+			t.getColumnModel().getColumn(i).setCellRenderer(r);
 		}
 
 		return t;

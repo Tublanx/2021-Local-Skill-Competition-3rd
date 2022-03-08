@@ -35,7 +35,7 @@ public class Login extends Baseframe {
 
 			if (txt[0].getText().equals("admin") && txt[1].getText().equals("1234")) {
 				iMsg("관리자로 로그인하였습니다.");
-				new Admin().addWindowListener(new Before(Login .this));
+				new Admin().addWindowListener(new Before(Login.this));
 				return;
 			}
 
@@ -50,6 +50,7 @@ public class Login extends Baseframe {
 					return;
 				} else {
 					uno = rs.getString(1);
+					ugender = rs.getInt("u_gender") == 1 ? "남자" : "여자";
 					iMsg(rs.getString(2) + "님 환영합니다.");
 					m.login(rs.getBlob("u_img").getBinaryStream().readAllBytes());
 					this.dispose();

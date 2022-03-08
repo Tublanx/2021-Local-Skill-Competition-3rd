@@ -101,6 +101,8 @@ public class Main extends Baseframe {
 	}
 
 	void search() {
+		noList.clear();
+
 		if (txt.getText().isEmpty()) {
 			eMsg("검색할 기업명을 입력하세요.");
 			return;
@@ -123,6 +125,7 @@ public class Main extends Baseframe {
 
 			execute("update company set c_search = c_search + 1 where c_no = " + noList.get(0));
 			famous();
+			System.out.println(noList.get(0));
 			new CompanyDetail(noList.get(0) + "").addWindowListener(new Before(Main.this));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
